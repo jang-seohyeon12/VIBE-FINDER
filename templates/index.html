@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>VIBE FINDER</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <header>
@@ -13,7 +13,7 @@
     <main>
         <section id="today-recommend">
             <h2>오늘의 노래</h2>
-            </section>
+        </section>
 
         <section id="genre-recommend">
             <h2>장르별 추천</h2>
@@ -49,6 +49,6 @@
             </div>
     </main>
 
-    <script src="/static/script.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
