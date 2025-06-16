@@ -1,0 +1,70 @@
+/* 기본 설정 */
+:root {
+    --main-color: #000000;
+    --sub-color: #39FF14; /* 형광 초록 */
+    --text-color: #FFFFFF;
+}
+
+/* 부드러운 스크롤 */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--main-color);
+    color: var(--text-color);
+    font-family: 'Pretendard', sans-serif; /* 예시 폰트 */
+    margin: 0;
+    padding: 20px;
+    /* 예쁜 커서 포인트 */
+    cursor: url('path/to/your/custom_cursor.png'), auto;
+}
+
+/* 헤더 스타일 */
+header h1 {
+    color: var(--sub-color);
+    text-align: center;
+    font-size: 3rem;
+    text-shadow: 0 0 10px var(--sub-color);
+}
+
+/* 버튼 공통 스타일 */
+button {
+    background-color: transparent;
+    border: 2px solid var(--sub-color);
+    color: var(--sub-color);
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: url('path/to/your/custom_cursor_pointer.png'), pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--sub-color);
+    color: var(--main-color);
+    box-shadow: 0 0 15px var(--sub-color);
+}
+
+/* 검색창 스타일 */
+input[type="text"] {
+    background-color: #222;
+    border: 1px solid var(--sub-color);
+    color: var(--text-color);
+    padding: 10px;
+    width: 300px;
+}
+
+/* 노래 리스트 (결과창) 스타일 */
+#results .track {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    border: 1px solid #333;
+    padding: 10px;
+}
+
+#results .track img {
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+}

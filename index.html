@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>VIBE FINDER</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>VIBE FINDER</h1>
+    </header>
+
+    <main>
+        <section id="today-recommend">
+            <h2>오늘의 노래</h2>
+            </section>
+
+        <section id="genre-recommend">
+            <h2>장르별 추천</h2>
+            <div class="genre-tags">
+                <button>K-Pop</button>
+                <button>Pop</button>
+                <button>Hip-Hop</button>
+                <button>R&B</button>
+                </div>
+        </section>
+
+        <section id="mood-recommend">
+            <h2>지금 당신의 기분은?</h2>
+            <div class="mood-buttons">
+                <button data-mood="joy">기쁨 😊</button>
+                <button data-mood="sadness">슬픔 😢</button>
+                <button data-mood="anger">분노 😠</button>
+                <button data-mood="excitement">설렘 🥰</button>
+                <button data-mood="gloominess">울적함 😞</button>
+                <button data-mood="fatigue">피곤함 🥱</button>
+            </div>
+        </section>
+
+        <section id="vibe-search">
+            <h2>원하는 분위기를 검색해보세요</h2>
+            <input type="text" placeholder="예: 신나지만 시끄럽지 않은 노래">
+            <button>검색</button>
+        </section>
+
+        <div id="results">
+            </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
