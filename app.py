@@ -1,4 +1,6 @@
-from flask import Flask, request, jsonify
+# app.py (수정된 최종 버전)
+
+from flask import Flask, request, jsonify, render_template # render_template 추가!
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
@@ -8,16 +10,22 @@ app = Flask(__name__)
 SPOTIPY_CLIENT_ID = 'f74ed565294044ab9f9563e20c04d8bd'
 SPOTIPY_CLIENT_SECRET = '1107dd47e5c047bfa5314dc4ea37569b'
 
-# Spotipy 객체 설정
 client_credentials_manager = SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+
+
+# 웹사이트의 첫 페이지 ('/')로 접속했을 때 index.html 파일을 보여주는 기능
+@app.route('/')
+def home():
+    # templates 폴더에 있는 index.html을 불러와서 사용자에게 보여줌
+    return render_template('index.html')
+
 
 # --- 기분별 음악 추천 로직 ---
 @app.route('/api/mood-recommend')
 def recommend_by_mood():
     mood = request.args.get('mood')
     
-    # 기분과 스포티파이 'Audio Features'를 매핑
     mood_params = {
         'joy':        {'target_valence': 0.8, 'target_energy': 0.8},
         'sadness':    {'target_valence': 0.2, 'target_energy': 0.3},
@@ -31,14 +39,11 @@ def recommend_by_mood():
     if not params:
         return jsonify({"error": "Invalid mood"}), 400
 
-    # 스포티파이에 추천 요청
-    # seed_genres: 추천의 기반이 될 장르 (다양하게 설정 가능)
-    results = sp.recommendations(seed_genres=['k-pop', 'pop'], limit=20, **params)
+    results = sp.recommendations(seed_genres=['k-pop', 'pop', 'acoustic'], limit=20, **params)
     
-    # 프론트엔드로 보낼 데이터 가공
     tracks = []
     for track in results['tracks']:
-        if track['preview_url']: # 30초 미리듣기가 있는 곡만 포함
+        if track['preview_url']:
             tracks.append({
                 'name': track['name'],
                 'artist': track['artists'][0]['name'],
@@ -48,29 +53,9 @@ def recommend_by_mood():
             
     return jsonify({"tracks": tracks})
 
-# --- 노래 분위기 검색 로직 (간단한 키워드 기반) ---
-@app.route('/api/vibe-search')
-def search_by_vibe():
-    query = request.args.get('q', '') # 예: "신나지만 시끄럽지 않은 노래"
-    
-    params = {'target_valence': 0.5, 'target_energy': 0.5} # 기본값
-    
-    # 키워드 분석 (간단한 버전)
-    if '신나는' in query:
-        params['target_valence'] = 0.8
-        params['target_energy'] = 0.7
-    if '조용한' in query:
-        params['target_energy'] = 0.2
-        params['target_acousticness'] = 0.8
-    if '슬픈' in query:
-        params['target_valence'] = 0.2
-    if '시끄럽지 않은' in query:
-        params['target_energy'] = max(0.4, params.get('target_energy', 0.5) - 0.3) # 기존 에너지에서 조금 빼기
-        
-    # 위와 동일하게 sp.recommendations 호출 및 데이터 가공
-    # ... (코드는 위 mood-recommend와 유사) ...
-    
-    return jsonify({"tracks": []}) # 임시 반환
+# (다른 API 기능들은 그대로 두면 됩니다)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # 외부에서 접속할 수 있도록 host='0.0.0.0' 추가
+    # port는 사용하는 환경에 따라 8080, 5001 등으로 변경 가능
+    app.run(host='0.0.0.0', port=5000, debug=True)

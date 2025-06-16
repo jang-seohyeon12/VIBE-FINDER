@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>VIBE FINDER</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <header>
@@ -22,7 +22,9 @@
                 <button>Pop</button>
                 <button>Hip-Hop</button>
                 <button>R&B</button>
-                </div>
+                <button>Acoustic</button>
+                <button>Dance</button>
+            </div>
         </section>
 
         <section id="mood-recommend">
@@ -39,14 +41,14 @@
 
         <section id="vibe-search">
             <h2>원하는 분위기를 검색해보세요</h2>
-            <input type="text" placeholder="예: 신나지만 시끄럽지 않은 노래">
-            <button>검색</button>
+            <input type="text" id="vibe-input" placeholder="예: 신나지만 시끄럽지 않은 노래">
+            <button id="vibe-search-button">검색</button>
         </section>
 
         <div id="results">
             </div>
     </main>
 
-    <script src="script.js"></script>
+    <script src="/static/script.js"></script>
 </body>
 </html>
